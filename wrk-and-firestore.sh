@@ -54,14 +54,20 @@ do
     esac
 done
 
-# Executing WRK_CMD creates wrk_intermediate.json    
+# Executing WRK_CMD creates result:wq!_intermediate.json    
 WRK_CMD="wrk -t ${threads} -c ${connections} -d ${duration} -s wrk_json.lua ${TARGET_URL}"
 echo ${WRK_CMD}
 ${WRK_CMD} 
 
-# Augment wrk_output.json with metadata
-echo "{ \"metadata\": { \"execution_time\": \"$current_time\", \"connections\": $connections, \"duration_seconds\": $duration, \"num_threads\": $threads  } }" > result_metadata.json
-
+# Augment the result with metadata
+echo "{ \
+  \"metadata\": { \
+    \"execution_time\":   \"$current_time\", \
+    \"connections\":      $connections, \
+    \"duration_seconds\": $duration, \
+    \"num_threads\":      $threads \
+  } \
+}" > result_metadata.json
 jq -s '.[0] * .[1]' result_metadata.json result_intermediate.json > result.json
 
 node upload-to-firestore.js
