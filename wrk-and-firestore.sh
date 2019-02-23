@@ -10,7 +10,7 @@ threads=2
 #In the ISO 8601 format of '2018-10-21T15:59:45+09:00'
 current_time=$(date -Iseconds)
 
-# parse options, not that whitespace is needed (e.g. -c 4) between an option and the option argument
+# parse options, note that whitespace is needed (e.g. -c 4) between an option and the option argument
 #  -c, --connections <N>  Connections to keep open
 #  -d, --duration    <T>  Duration of test        
 #  -t, --threads     <N>  Number of threads to use 
